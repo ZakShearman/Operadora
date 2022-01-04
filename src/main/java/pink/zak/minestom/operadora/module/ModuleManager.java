@@ -41,7 +41,7 @@ public class ModuleManager {
                 if (moduleConfig.getBoolean("enabled")) {
                     module.load(moduleConfig);
                     module.setEnabled(true);
-                    LOGGER.info("Loaded module {}", moduleId);
+                    LOGGER.debug("Loaded module {}", moduleId);
                 }
             } else {
                 LOGGER.warn("Unknown value specified in modules.conf ({})", moduleId);

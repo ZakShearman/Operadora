@@ -1,18 +1,22 @@
 package pink.zak.minestom.operadora.config;
 
-import com.google.gson.JsonObject;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
+import net.minestom.server.extras.bungee.BungeeCordProxy;
+import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.world.Difficulty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pink.zak.minestom.operadora.Operadora;
-import pink.zak.minestom.operadora.utils.data.FileConverterUtils;
 import pink.zak.minestom.operadora.utils.data.FileUtils;
 
 import java.nio.file.Path;
 
 public class OperadoraConfig {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OperadoraConfig.class);
+
     private final String ip;
     private final int port;
     private final boolean onlineMode;
@@ -22,6 +26,9 @@ public class OperadoraConfig {
 
     private final String brandName; // What is displayed in the F3 menu
     private final Difficulty difficulty;
+
+    private final ProxyType proxyType;
+    private final String velocitySecret;
 
     public OperadoraConfig() {
         Path filePath = Operadora.getBasePath().resolve("server-properties.conf");
@@ -38,6 +45,9 @@ public class OperadoraConfig {
 
         this.brandName = config.getString("brand-name");
         this.difficulty = config.getEnum(Difficulty.class, "difficulty");
+
+        this.proxyType = config.getEnum(ProxyType.class, "proxy.type");
+        this.velocitySecret = System.getProperty("minestom.operadora.velocity-secret", config.getString("proxy.velocity-secret"));
     }
 
     public void applySystemProperties() {
@@ -52,9 +62,35 @@ public class OperadoraConfig {
         if (this.onlineMode)
             MojangAuth.init();
 
+        this.setupProxy();
         MinecraftServer.setCompressionThreshold(this.compressionThreshold);
         MinecraftServer.setBrandName(this.brandName);
         MinecraftServer.setDifficulty(this.difficulty);
+    }
+
+    private enum ProxyType {
+        NONE,
+        BUNGEE_CORD,
+        VELOCITY
+    }
+
+    private void setupProxy() {
+        switch (this.proxyType) {
+            case VELOCITY -> {
+                if (this.velocitySecret.isEmpty()) {
+                    LOGGER.error("Velocity support is enabled but the velocity secret is empty");
+                    System.exit(1000); // Might as well terminate the server, it won't act as expected otherwise
+                } else {
+                    VelocityProxy.enable(this.velocitySecret);
+                    LOGGER.info("Velocity support has been enabled");
+                }
+            }
+            case BUNGEE_CORD -> {
+                BungeeCordProxy.enable();
+                LOGGER.info("BungeeCord support has been enabled");
+            }
+            case NONE -> {}
+        }
     }
 
     public String getIp() {
