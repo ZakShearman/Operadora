@@ -1,22 +1,17 @@
 package pink.zak.minestom.operadora;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.command.CommandManager;
-import net.minestom.server.command.builder.Command;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pink.zak.minestom.operadora.command.ExtensionsCommand;
-import pink.zak.minestom.operadora.command.OperadoraCommand;
-import pink.zak.minestom.operadora.command.operator.OperatorCommand;
-import pink.zak.minestom.operadora.command.StopCommand;
 import pink.zak.minestom.operadora.config.OperadoraConfig;
 import pink.zak.minestom.operadora.manager.CommandLoader;
 import pink.zak.minestom.operadora.module.ModuleManager;
 import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
 import pink.zak.minestom.operadora.storage.OperatorRepository;
+import pink.zak.minestom.operadora.storage.WhitelistRepository;
 
 import java.nio.file.Path;
 
@@ -26,6 +21,7 @@ public class Operadora {
     public static final Logger LOGGER = LoggerFactory.getLogger(Operadora.class);
 
     private static OperatorRepository operatorRepository;
+    private static WhitelistRepository whitelistRepository;
 
     private static ModuleManager moduleManager;
 
@@ -67,6 +63,10 @@ public class Operadora {
 
     public static OperatorRepository getOperatorRepository() {
         return operatorRepository;
+    }
+
+    public static WhitelistRepository getWhitelistRepository() {
+        return whitelistRepository;
     }
 
     public static ModuleManager getModuleManager() {

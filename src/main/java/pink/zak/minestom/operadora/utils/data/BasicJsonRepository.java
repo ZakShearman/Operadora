@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pink.zak.minestom.operadora.storage.WhitelistRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class BasicJsonRepository {
-    protected static final Logger LOGGER = LoggerFactory.getLogger(WhitelistRepository.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(BasicJsonRepository.class);
     protected static final Gson GSON = new GsonBuilder().create();
     protected final Path path;
 
