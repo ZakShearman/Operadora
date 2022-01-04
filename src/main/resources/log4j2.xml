@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" strict="true" name="Minestom">
+    <Appenders>
+        <Appender type="Console" name="STDOUT">
+            <Layout type="PatternLayout" pattern="[%t] [%d{HH:mm:ss}] - %p - %m%n"/>
+        </Appender>
+
+        <Appender type="Console" name="STDOUT-WithCaller">
+            <Layout type="PatternLayout" pattern="[%t] [%d{HH:mm:ss}] (%C{1}.%M) - %p - %m%n"/>
+        </Appender>
+
+        <RollingFile name="RollingFile" fileName="logs/running.log" filePattern="logs/archived/%d{yyyy-MM-dd}.%i.log.gz"
+                     ignoreExceptions="false">
+            <PatternLayout pattern="[%t] [%d{HH:mm:ss}] (%C{1}.%M) - %p - %m%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="40MB"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="STDOUT-WithCaller" level="info"/>
+            <AppenderRef ref="RollingFile" level="info"/>
+        </Root>
+    </Loggers>
+</Configuration>
