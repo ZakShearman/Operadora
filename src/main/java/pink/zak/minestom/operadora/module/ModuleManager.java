@@ -11,8 +11,10 @@ import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
 import pink.zak.minestom.operadora.utils.data.FileUtils;
 
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ModuleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleManager.class);
@@ -25,14 +27,11 @@ public class ModuleManager {
         FileUtils.saveResourceIfNotExists(path, "modules.conf");
         Config config = ConfigFactory.parseFile(path.toFile());
 
-        System.out.println("A");
         for (Map.Entry<String, ConfigValue> entry : config.root().entrySet()) {
-            System.out.println("B " + entry);
             String moduleId = entry.getKey();
 
             if (entry.getValue() instanceof ConfigObject moduleConfigObject) {
                 Config moduleConfig = moduleConfigObject.toConfig();
-                System.out.println("C");
                 Module module = this.registeredModules.get(moduleId);
                 if (module == null) {
                     LOGGER.warn("Unknown module {} was specified in modules.conf", moduleId);
@@ -41,6 +40,7 @@ public class ModuleManager {
 
                 if (moduleConfig.getBoolean("enabled")) {
                     module.load(moduleConfig);
+                    module.setEnabled(true);
                     LOGGER.info("Loaded module {}", moduleId);
                 }
             } else {
@@ -51,6 +51,18 @@ public class ModuleManager {
 
     private void createModules() {
         this.registeredModules.put("host-support", new HostSupportModule());
+    }
+
+    public Map<String, Module> getRegisteredModules() {
+        return this.registeredModules;
+    }
+
+    public Collection<Module> getEnabledModules() {
+        return this.registeredModules
+            .values()
+            .stream()
+            .filter(Module::isEnabled)
+            .collect(Collectors.toUnmodifiableSet());
     }
 
     public Module getModule(String id) {
