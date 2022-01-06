@@ -24,7 +24,7 @@ public class ExtensionsCommand extends Command {
     public ExtensionsCommand() {
         super("extensions", "ex");
 
-        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition(), this::listExtensionsCommand);
+        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition("operadora.command.extensions"), this::listExtensionsCommand);
     }
 
     private void listExtensionsCommand(CommandSender sender, CommandContext context) {

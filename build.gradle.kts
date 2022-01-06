@@ -15,7 +15,8 @@ repositories {
 
 dependencies {
     // modified minestom
-    implementation("com.github.ZakShearman:Minestom:12bc35f89")
+    implementation("com.github.ZakShearman:Minestom:2034ee1f2")
+    implementation("com.influxdb:influxdb-client-java:4.0.0")
     implementation("com.typesafe:config:1.4.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")

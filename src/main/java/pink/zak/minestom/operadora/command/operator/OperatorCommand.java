@@ -8,6 +8,7 @@ import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentLiteral;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.arguments.minecraft.ArgumentEntity;
+import net.minestom.server.command.builder.condition.CommandCondition;
 import net.minestom.server.entity.Player;
 import net.minestom.server.utils.entity.EntityFinder;
 import pink.zak.minestom.operadora.Operadora;
@@ -26,8 +27,9 @@ public class OperatorCommand extends Command {
         ArgumentLiteral listArgument = ArgumentType.Literal("list");
         ArgumentEntity playerArgument = ArgumentType.Entity("target").onlyPlayers(true).singleEntity(true);
 
-        this.addConditionalSyntax(this.operatorRepository.getCommandCondition(), this::opPlayerCommand, playerArgument);
-        this.addConditionalSyntax(this.operatorRepository.getCommandCondition(), (sender, context) -> {}, listArgument); // just used here to help the client autocomplete
+        CommandCondition commandCondition = this.operatorRepository.getCommandCondition("operadora.command.op");
+        this.addConditionalSyntax(commandCondition, this::opPlayerCommand, playerArgument);
+        this.addConditionalSyntax(commandCondition, (sender, context) -> {}, listArgument);
     }
 
     private void opPlayerCommand(CommandSender sender, CommandContext context) {

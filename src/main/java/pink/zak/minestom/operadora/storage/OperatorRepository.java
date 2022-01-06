@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.builder.condition.CommandCondition;
 import net.minestom.server.entity.Player;
+import net.minestom.server.event.player.PlayerLoginEvent;
 import net.minestom.server.timer.Task;
 import net.minestom.server.utils.time.TimeUnit;
 import pink.zak.minestom.operadora.Operadora;
@@ -37,6 +38,12 @@ public class OperatorRepository extends BasicJsonRepository {
             .delay(5, TimeUnit.MINUTE)
             .repeat(5, TimeUnit.MINUTE)
             .schedule();
+
+        Operadora.getEventNode().addListener(PlayerLoginEvent.class, event -> {
+            Player player = event.getPlayer();
+            if (this.operatorUuids.contains(player.getUuid()))
+                player.setPermissionLevel(4);
+        });
     }
 
     private void load() {
@@ -81,9 +88,9 @@ public class OperatorRepository extends BasicJsonRepository {
         return this.operatorUuids.contains(uuid);
     }
 
-    public CommandCondition getCommandCondition() {
+    public CommandCondition getCommandCondition(String permission) {
         return (sender, commandString) -> {
-            if (!(sender instanceof Player) || this.isOperator(((Player) sender).getUuid()))
+            if (!(sender instanceof Player) || ((Player) sender).getPermissionLevel() == 4)
                 return true;
             if (commandString != null)
                 sender.sendMessage(Component.text("Insufficient permissions.", NamedTextColor.RED));

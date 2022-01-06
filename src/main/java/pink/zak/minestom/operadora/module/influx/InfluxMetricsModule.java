@@ -1,0 +1,47 @@
+package pink.zak.minestom.operadora.module.influx;
+
+import com.influxdb.client.WriteApi;
+import com.influxdb.client.write.Point;
+import com.typesafe.config.Config;
+import pink.zak.minestom.operadora.module.Module;
+import pink.zak.minestom.operadora.module.influx.metrics.PlayerCountMetric;
+import pink.zak.minestom.operadora.module.influx.metrics.TickMonitorMetrics;
+import pink.zak.minestom.operadora.module.influx.metrics.extensions.InfluxMetric;
+
+import java.time.Duration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class InfluxMetricsModule extends Module {
+    private final Set<InfluxMetric> activeMetrics = new HashSet<>();
+    private InfluxConnection influxConnection;
+    private WriteApi writeApi;
+
+    public InfluxMetricsModule() {
+        super("influx-metrics");
+    }
+
+    @Override
+    public void load(Config config) {
+        String url = config.getString("url");
+        String token = config.getString("token");
+        String organisation = config.getString("organisation");
+        String bucket = config.getString("bucket");
+        Duration updateTime = config.getDuration("update-time");
+
+        this.influxConnection = new InfluxConnection(url, token, organisation, bucket);
+        this.writeApi = this.influxConnection.getWriteApi();
+
+        this.createMetrics();
+    }
+
+    private void createMetrics() {
+        this.activeMetrics.add(new PlayerCountMetric(this));
+        this.activeMetrics.add(new TickMonitorMetrics(this));
+    }
+
+    public void writePoints(List<Point> points) {
+        this.writeApi.writePoints(points);
+    }
+}

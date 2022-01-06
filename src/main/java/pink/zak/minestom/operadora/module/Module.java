@@ -26,4 +26,8 @@ public abstract class Module {
     }
 
     public abstract void load(Config config);
+
+    public void disable() {
+        this.enabled = false;
+    }
 }

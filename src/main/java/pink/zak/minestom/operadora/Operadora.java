@@ -1,8 +1,12 @@
 package pink.zak.minestom.operadora;
 
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.coordinate.Pos;
+import net.minestom.server.entity.Player;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
+import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.instance.Instance;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,17 +51,29 @@ public class Operadora {
         MinecraftServer.getSchedulerManager().buildShutdownTask(Operadora::onStop);
 
         new CommandLoader();
+
+
+        Instance instance = MinecraftServer.getInstanceManager().createInstanceContainer(); // TODO REMOVEEEE
+        EVENT_NODE.addListener(PlayerLoginEvent.class, event -> {
+            Player player = event.getPlayer();
+            event.setSpawningInstance(instance);
+            player.setRespawnPoint(new Pos(0, 100, 0));
+            player.setAllowFlying(true);
+            player.setFlying(true);
+        });
     }
 
     private static void onStop() {
         operatorRepository.shutdown();
     }
 
-    public static @NotNull Path getBasePath() {
+    public static @NotNull
+    Path getBasePath() {
         return BASE_PATH;
     }
 
-    public static @NotNull EventNode<Event> getEventNode() {
+    public static @NotNull
+    EventNode<Event> getEventNode() {
         return EVENT_NODE;
     }
 

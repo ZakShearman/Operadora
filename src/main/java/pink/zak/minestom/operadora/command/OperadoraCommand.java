@@ -27,7 +27,7 @@ public class OperadoraCommand extends Command {
         ArgumentLiteral moduleLiteral = ArgumentType.Literal("module");
         ArgumentLiteral listLiteral = ArgumentType.Literal("list");
 
-        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition(), this::listModulesCommand, moduleLiteral, listLiteral);
+        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition("operadora.command.operadora"), this::listModulesCommand, moduleLiteral, listLiteral);
     }
 
     private void listModulesCommand(CommandSender sender, CommandContext context) {

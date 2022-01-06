@@ -11,7 +11,7 @@ public class StopCommand extends Command {
     public StopCommand() {
         super("stop");
 
-        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition(), this::stopCommand);
+        this.addConditionalSyntax(Operadora.getOperatorRepository().getCommandCondition("operadora.command.stop"), this::stopCommand);
     }
 
     private void stopCommand(CommandSender sender, CommandContext context) {
