@@ -5,6 +5,7 @@ import com.influxdb.client.write.Point;
 import com.typesafe.config.Config;
 import pink.zak.minestom.operadora.module.Module;
 import pink.zak.minestom.operadora.module.influx.metrics.CpuMetrics;
+import pink.zak.minestom.operadora.module.influx.metrics.InstanceMetrics;
 import pink.zak.minestom.operadora.module.influx.metrics.MemoryMetrics;
 import pink.zak.minestom.operadora.module.influx.metrics.PlayerCountMetric;
 import pink.zak.minestom.operadora.module.influx.metrics.ThreadMetrics;
@@ -41,6 +42,7 @@ public class InfluxMetricsModule extends Module {
 
     private void createMetrics() {
         this.activeMetrics.add(new CpuMetrics(this));
+        this.activeMetrics.add(new InstanceMetrics(this));
         this.activeMetrics.add(new MemoryMetrics(this));
         this.activeMetrics.add(new PlayerCountMetric(this));
         this.activeMetrics.add(new ThreadMetrics(this));

@@ -51,16 +51,6 @@ public class Operadora {
         MinecraftServer.getSchedulerManager().buildShutdownTask(Operadora::onStop);
 
         new CommandLoader();
-
-
-        Instance instance = MinecraftServer.getInstanceManager().createInstanceContainer(); // TODO REMOVEEEE
-        EVENT_NODE.addListener(PlayerLoginEvent.class, event -> {
-            Player player = event.getPlayer();
-            event.setSpawningInstance(instance);
-            player.setRespawnPoint(new Pos(0, 100, 0));
-            player.setAllowFlying(true);
-            player.setFlying(true);
-        });
     }
 
     private static void onStop() {

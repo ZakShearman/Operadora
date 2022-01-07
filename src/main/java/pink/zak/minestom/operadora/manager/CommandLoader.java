@@ -11,6 +11,7 @@ import pink.zak.minestom.operadora.Operadora;
 import pink.zak.minestom.operadora.command.ExtensionsCommand;
 import pink.zak.minestom.operadora.command.OperadoraCommand;
 import pink.zak.minestom.operadora.command.StopCommand;
+import pink.zak.minestom.operadora.command.gamemode.GamemodeCommand;
 import pink.zak.minestom.operadora.command.operator.OperatorCommand;
 import pink.zak.minestom.operadora.command.operator.RemoveOperatorCommand;
 import pink.zak.minestom.operadora.utils.data.FileUtils;
@@ -26,6 +27,7 @@ public class CommandLoader {
 
     static {
         AVAILABLE_COMMANDS = Map.ofEntries( // config is here for future features
+            Map.entry("gamemode", config -> new GamemodeCommand()),
             Map.entry("operator", config -> new OperatorCommand()),
             Map.entry("remove-operator", config -> new RemoveOperatorCommand()),
             Map.entry("extensions", config -> new ExtensionsCommand()),
