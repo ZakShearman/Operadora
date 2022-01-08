@@ -7,6 +7,7 @@ import com.typesafe.config.ConfigValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pink.zak.minestom.operadora.Operadora;
+import pink.zak.minestom.operadora.module.chat.ChatModule;
 import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
 import pink.zak.minestom.operadora.module.influx.InfluxMetricsModule;
 import pink.zak.minestom.operadora.utils.data.FileUtils;
@@ -51,6 +52,7 @@ public class ModuleManager {
     }
 
     private void createModules() {
+        this.registeredModules.put("chat", new ChatModule());
         this.registeredModules.put("host-support", new HostSupportModule());
         this.registeredModules.put("influx-metrics", new InfluxMetricsModule());
     }

@@ -1,15 +1,9 @@
 package pink.zak.minestom.operadora;
 
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.coordinate.Pos;
-import net.minestom.server.entity.Player;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
-import net.minestom.server.event.player.PlayerLoginEvent;
-import net.minestom.server.instance.Instance;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pink.zak.minestom.operadora.config.OperadoraConfig;
 import pink.zak.minestom.operadora.manager.CommandLoader;
 import pink.zak.minestom.operadora.module.ModuleManager;
@@ -22,7 +16,7 @@ import java.nio.file.Path;
 public class Operadora {
     private static final Path BASE_PATH = Path.of("");
     private static final EventNode<Event> EVENT_NODE = EventNode.all("operadora");
-    public static final Logger LOGGER = LoggerFactory.getLogger(Operadora.class);
+    private static final OperadoraConfig OPERADORA_CONFIG = OperadoraConfig.load();
 
     private static OperatorRepository operatorRepository;
     private static WhitelistRepository whitelistRepository;
@@ -30,15 +24,14 @@ public class Operadora {
     private static ModuleManager moduleManager;
 
     public static void main(String[] args) {
-        OperadoraConfig config = new OperadoraConfig();
-        config.applySystemProperties();
+        OPERADORA_CONFIG.applySystemProperties();
 
         MinecraftServer server = MinecraftServer.init();
-        config.applyServerSettings();
+        OPERADORA_CONFIG.applyServerSettings();
 
         MinecraftServer.getGlobalEventHandler().addChild(EVENT_NODE);
 
-        server.start(config.getIp(), config.getPort());
+        server.start(OPERADORA_CONFIG.ip(), OPERADORA_CONFIG.port());
 
         operatorRepository = new OperatorRepository();
 
