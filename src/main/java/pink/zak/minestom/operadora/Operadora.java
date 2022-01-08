@@ -60,6 +60,10 @@ public class Operadora {
         return EVENT_NODE;
     }
 
+    public static OperadoraConfig getOperadoraConfig() {
+        return OPERADORA_CONFIG;
+    }
+
     public static OperatorRepository getOperatorRepository() {
         return operatorRepository;
     }

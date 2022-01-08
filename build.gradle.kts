@@ -1,7 +1,9 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import java.lang.System
 
 plugins {
     `java-library`
+    `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -32,6 +34,41 @@ tasks {
             attributes(
                 "Main-Class" to "pink.zak.minestom.operadora.Operadora"
             )
+        }
+    }
+    withType<Jar> {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+val mavenRepo = "https://mvn.zak.pink"
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "pink.zak.minestom.operadora"
+            artifactId = "operadora"
+
+            val buildNumber = System.getenv("BUILD_NUMBER");
+            version = if (buildNumber == null) "1.0" else buildNumber
+
+            from(components["java"])
+        }
+    }
+    repositories {
+        maven {
+            var isSnapshot = System.getenv("BUILD_NUMBER") != null;
+            url = uri(mavenRepo + (if (isSnapshot) "/snapshots" else "/releases"))
+
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
         }
     }
 }
