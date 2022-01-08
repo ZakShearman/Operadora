@@ -11,6 +11,23 @@ Operadora is a a Minestom server implementation with basic features, some utilit
 
   - Download the latest release (stable) or [build from the CI](https://ci.zak.pink/buildConfiguration/Operadora_Build) (development)
   - Run the jar using `java -jar fileName.jar`
+
+## Importing from Maven
+
+If you are using a pre-release build, make sure you use the build number from [TeamCity](https://ci.zak.pink/buildConfiguration/Operadora_Build)
+
+```gradle
+repositories {
+  maven("https://mvn.zak.pink/releases") // release builds
+  maven("https://mvn.zak.pink/shapshots") // pre-release builds
+}
+
+dependencies {
+  compileOnly("pink.zak.minestom.operadora:operadora:1.0.0") // release builds
+  compileOnly("pink.zak.minestom.operadora:operadora:26") // pre-release builds (see TeamCity CI)
+}
+```
+
   
 ## Modifying the JAR
 
