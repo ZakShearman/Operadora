@@ -41,11 +41,6 @@ tasks {
     }
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 val mavenRepo = "https://mvn.zak.pink"
 
 publishing {

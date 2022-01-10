@@ -9,6 +9,8 @@ import net.minestom.server.event.player.PlayerSpawnEvent;
 import pink.zak.minestom.operadora.Operadora;
 import pink.zak.minestom.operadora.module.Module;
 
+import java.text.DecimalFormat;
+
 public class HostSupportModule extends Module {
 
     public HostSupportModule() {
@@ -29,7 +31,8 @@ public class HostSupportModule extends Module {
             });
     }
 
-    public void onStart() {
-        Audiences.console().sendMessage(Component.text("Done - Started Up"));
+    public void onStart(long startupMillis) {
+        String formattedTime = new DecimalFormat("#.##").format(startupMillis / 1000d);
+        Audiences.console().sendMessage(Component.text("Done (" + formattedTime + "s)! For help, type \"help\" or \"?\""));
     }
 }

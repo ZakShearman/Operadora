@@ -24,6 +24,7 @@ public class Operadora {
     private static ModuleManager moduleManager;
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         OPERADORA_CONFIG.applySystemProperties();
 
         MinecraftServer server = MinecraftServer.init();
@@ -37,9 +38,10 @@ public class Operadora {
 
         moduleManager = new ModuleManager();
 
+        long startupTime = System.currentTimeMillis() - startTime;
         HostSupportModule hostSupportModule = (HostSupportModule) moduleManager.getModule("host-support");
         if (hostSupportModule.isEnabled())
-            hostSupportModule.onStart();
+            hostSupportModule.onStart(startupTime);
 
         MinecraftServer.getSchedulerManager().buildShutdownTask(Operadora::onStop);
 
