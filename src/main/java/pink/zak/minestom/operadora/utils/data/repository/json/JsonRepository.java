@@ -1,7 +1,6 @@
 package pink.zak.minestom.operadora.utils.data.repository.json;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStringConverter<ID> {
-    protected static final Gson GSON = new GsonBuilder().create();
+    protected static final Gson GSON = new Gson();
     protected final Path basePath;
 
     public JsonRepository(Path folder) {

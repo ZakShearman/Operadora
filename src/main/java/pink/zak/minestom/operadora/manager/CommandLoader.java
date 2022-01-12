@@ -11,6 +11,7 @@ import pink.zak.minestom.operadora.Operadora;
 import pink.zak.minestom.operadora.command.ExtensionsCommand;
 import pink.zak.minestom.operadora.command.OperadoraCommand;
 import pink.zak.minestom.operadora.command.StopCommand;
+import pink.zak.minestom.operadora.command.VersionCommand;
 import pink.zak.minestom.operadora.command.gamemode.GamemodeCommand;
 import pink.zak.minestom.operadora.command.operator.OperatorCommand;
 import pink.zak.minestom.operadora.command.operator.RemoveOperatorCommand;
@@ -32,7 +33,8 @@ public class CommandLoader {
             Map.entry("remove-operator", config -> new RemoveOperatorCommand()),
             Map.entry("extensions", config -> new ExtensionsCommand()),
             Map.entry("operadora", config -> new OperadoraCommand()),
-            Map.entry("stop", config -> new StopCommand())
+            Map.entry("stop", config -> new StopCommand()),
+            Map.entry("version", config -> new VersionCommand())
         );
     }
 
@@ -54,9 +56,5 @@ public class CommandLoader {
                 commandManager.register(command);
             }
         }
-    }
-
-    public void registerCommands() {
-
     }
 }

@@ -1,7 +1,6 @@
 package pink.zak.minestom.operadora.utils.data;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ import java.nio.file.Path;
 
 public abstract class BasicJsonRepository {
     protected static final Logger LOGGER = LoggerFactory.getLogger(BasicJsonRepository.class);
-    protected static final Gson GSON = new GsonBuilder().create();
+    protected static final Gson GSON = new Gson();
     protected final Path path;
 
     public BasicJsonRepository(Path path) {

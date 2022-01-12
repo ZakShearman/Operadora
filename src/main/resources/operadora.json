@@ -1,0 +1,5 @@
+{
+  "version": "${version}",
+  "buildNumber": "${build_number}",
+  "commitHash": "${commit_hash}"
+}

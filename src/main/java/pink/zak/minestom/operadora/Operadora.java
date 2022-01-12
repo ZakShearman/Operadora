@@ -5,6 +5,7 @@ import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
 import org.jetbrains.annotations.NotNull;
 import pink.zak.minestom.operadora.config.OperadoraConfig;
+import pink.zak.minestom.operadora.config.OperadoraMeta;
 import pink.zak.minestom.operadora.manager.CommandLoader;
 import pink.zak.minestom.operadora.module.ModuleManager;
 import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
@@ -17,6 +18,7 @@ public class Operadora {
     private static final Path BASE_PATH = Path.of("");
     private static final EventNode<Event> EVENT_NODE = EventNode.all("operadora");
     private static final OperadoraConfig OPERADORA_CONFIG = OperadoraConfig.load();
+    private static final OperadoraMeta OPERADORA_META = OperadoraMeta.load();
 
     private static OperatorRepository operatorRepository;
     private static WhitelistRepository whitelistRepository;
@@ -64,6 +66,10 @@ public class Operadora {
 
     public static OperadoraConfig getOperadoraConfig() {
         return OPERADORA_CONFIG;
+    }
+
+    public static OperadoraMeta getMeta() {
+        return OPERADORA_META;
     }
 
     public static OperatorRepository getOperatorRepository() {

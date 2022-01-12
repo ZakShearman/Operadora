@@ -33,15 +33,17 @@ tasks {
         manifest {
             attributes(
                 mapOf(
-                    "Main-Class" to "pink.zak.minestom.operadora.Operadora",
-                    "Specification-Vendor" to "Minestom",
-                    "Specification-Title" to "Minestom",
-                    "Operadora-Version" to archiveVersion,
-                    "Operadora-Build" to if (System.getenv("BUILD_NUMBER") == null) "N/A" else System.getenv("BUILD_NUMBER"),
-                    "Operadora-Git-Hash" to if (System.getenv("BUILD_VCS_NUMBER") == null) "N/A" else System.getenv("BUILD_VCS_NUMBER")
+                    "Main-Class" to "pink.zak.minestom.operadora.Operadora"
                 )
             )
         }
+    }
+    processResources {
+        expand(mapOf(
+            "version" to version,
+            "build_number" to if (System.getenv("BUILD_NUMBER") == null) "unknown" else System.getenv("BUILD_NUMBER"),
+            "commit_hash" to if (System.getenv("BUILD_VCS_NUMBER") == null) "unknown" else System.getenv("BUILD_VCS_NUMBER")
+        ))
     }
     named<Test>("test") {
         useJUnitPlatform()
@@ -56,7 +58,6 @@ publishing {
             groupId = "pink.zak.minestom.operadora"
             artifactId = "operadora"
 
-            println("VERSION: $version")
             from(components["java"])
         }
     }
