@@ -38,7 +38,7 @@ tasks {
                     "Specification-Title" to "Minestom",
                     "Operadora-Version" to archiveVersion,
                     "Operadora-Build" to if (System.getenv("BUILD_NUMBER") == null) "N/A" else System.getenv("BUILD_NUMBER"),
-                    "Operadora-Git-Hash" to if (System.getenv("build.vcs.number") == null) "N/A" else System.getenv("build.vcs.number")
+                    "Operadora-Git-Hash" to if (System.getenv("BUILD_VCS_NUMBER") == null) "N/A" else System.getenv("BUILD_VCS_NUMBER")
                 )
             )
         }
