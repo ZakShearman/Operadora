@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import java.lang.System
 
 plugins {
@@ -8,7 +7,7 @@ plugins {
 }
 
 group = "pink.zak.minestom.operadora"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -23,21 +22,29 @@ dependencies {
     api("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT")
     implementation("com.typesafe:config:1.4.1")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
 }
 
 
 tasks {
-    named<ShadowJar>("shadowJar") {
+    withType<Jar> {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         manifest {
             attributes(
-                "Main-Class" to "pink.zak.minestom.operadora.Operadora"
+                mapOf(
+                    "Main-Class" to "pink.zak.minestom.operadora.Operadora",
+                    "Specification-Vendor" to "Minestom",
+                    "Specification-Title" to "Minestom",
+                    "Operadora-Version" to archiveVersion,
+                    "Operadora-Build" to if (System.getenv("BUILD_NUMBER") == null) "N/A" else System.getenv("BUILD_NUMBER"),
+                    "Operadora-Git-Hash" to if (System.getenv("build.vcs.number") == null) "N/A" else System.getenv("build.vcs.number")
+                )
             )
         }
     }
-    withType<Jar> {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    named<Test>("test") {
+        useJUnitPlatform()
     }
 }
 
@@ -49,15 +56,13 @@ publishing {
             groupId = "pink.zak.minestom.operadora"
             artifactId = "operadora"
 
-            val buildNumber = System.getenv("BUILD_NUMBER");
-            version = if (buildNumber == null) "1.0" else buildNumber
-
+            println("VERSION: $version")
             from(components["java"])
         }
     }
     repositories {
         maven {
-            var isSnapshot = System.getenv("BUILD_NUMBER") != null;
+            val isSnapshot = System.getenv("BUILD_NUMBER") != null
             url = uri(mavenRepo + (if (isSnapshot) "/snapshots" else "/releases"))
 
             credentials {
@@ -66,8 +71,4 @@ publishing {
             }
         }
     }
-}
-
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
 }
