@@ -13,15 +13,13 @@ public record OperadoraMeta(String version, String buildNumber, String commitHas
         try {
             String jsonString = new String(FileUtils.class.getClassLoader().getResourceAsStream("operadora.json").readAllBytes());
             JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-            System.out.println(jsonString);
-            System.out.println(jsonObject);
             return new OperadoraMeta(
                 jsonObject.get("version").getAsString(),
                 jsonObject.get("buildNumber").getAsString(),
                 jsonObject.get("commitHash").getAsString()
             );
         } catch (Exception ex) {
-            LOGGER.error("Error loading OperadoraMeta (MANIFEST.MF)", ex);
+            LOGGER.error("Error loading OperadoraMeta", ex);
             return null;
         }
     }

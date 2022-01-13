@@ -41,8 +41,8 @@ tasks {
     processResources {
         expand(mapOf(
             "version" to version,
-            "build_number" to if (System.getenv("BUILD_NUMBER") == null) "unknown" else System.getenv("BUILD_NUMBER"),
-            "commit_hash" to if (System.getenv("BUILD_VCS_NUMBER") == null) "unknown" else System.getenv("BUILD_VCS_NUMBER")
+            "build_number" to if (hasProperty("BUILD_NUMBER")) System.getenv("BUILD_NUMBER") else "unknown",
+            "commit_hash" to if (hasProperty("BUILD_VCS_NUMBER")) System.getenv("BUILD_VCS_NUMBER") else "unknown"
         ))
     }
     named<Test>("test") {
@@ -63,7 +63,7 @@ publishing {
     }
     repositories {
         maven {
-            val isSnapshot = System.getenv("BUILD_NUMBER") != null
+            val isSnapshot = hasProperty("BUILD_NUMBER")
             url = uri(mavenRepo + (if (isSnapshot) "/snapshots" else "/releases"))
 
             credentials {
