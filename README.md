@@ -6,11 +6,22 @@ Operadora is a a Minestom server implementation with basic features, some utilit
 ![GitHub all releases](https://img.shields.io/github/downloads/ZakShearman/Operadora/total)
 ![License](https://img.shields.io/github/license/ZakShearman/mc-tower-defence)
 
+## Requirements
+
+  - Java 17+
+  - 256MB RAM
 
 ## Installation
 
   - Download the latest release (stable) or [build from the CI](https://ci.zak.pink/buildConfiguration/Operadora_Build) (development)
   - Run the jar using `java -jar fileName.jar`
+
+## Features
+
+  - Host Support (for hosts that don't have minestom support)
+  - Metrics/Monitoring support via InfluxDB
+  - Easy server configuration via the [server-properties.conf](https://github.com/ZakShearman/Operadora/blob/master/src/main/resources/server-properties.conf) file
+
 
 ## Importing from Maven
 
