@@ -11,6 +11,7 @@ import pink.zak.minestom.operadora.module.ModuleManager;
 import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
 import pink.zak.minestom.operadora.storage.OperatorRepository;
 import pink.zak.minestom.operadora.storage.WhitelistRepository;
+import pink.zak.minestom.operadora.update.UpdateChecker;
 
 import java.nio.file.Path;
 
@@ -41,6 +42,9 @@ public class Operadora {
         moduleManager = new ModuleManager();
 
         long startupTime = System.currentTimeMillis() - startTime;
+
+        new UpdateChecker();
+
         HostSupportModule hostSupportModule = (HostSupportModule) moduleManager.getModule("host-support");
         if (hostSupportModule.isEnabled())
             hostSupportModule.onStart(startupTime);

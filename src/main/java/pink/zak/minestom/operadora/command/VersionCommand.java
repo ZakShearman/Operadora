@@ -13,12 +13,12 @@ import net.minestom.server.extensions.DiscoveredExtension;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.extensions.ExtensionManager;
 import pink.zak.minestom.operadora.Operadora;
-import pink.zak.minestom.operadora.config.OperadoraMeta;
+import pink.zak.minestom.operadora.update.OperadoraVersion;
 
 import java.util.Arrays;
 
 public class VersionCommand extends Command {
-    private final OperadoraMeta meta = Operadora.getMeta();
+    private final OperadoraVersion version = Operadora.getMeta().version();
     private final ExtensionManager extensionManager = MinecraftServer.getExtensionManager();
 
     public VersionCommand() {
@@ -35,7 +35,7 @@ public class VersionCommand extends Command {
     }
 
     private void versionCommand(CommandSender sender, CommandContext context) {
-        Component content = Component.text("Running Operadora version " + this.meta.version() + " (#" + this.meta.buildNumber() + " git-" + this.meta.shortCommitHash() + ")");
+        Component content = Component.text("Running Operadora version " + this.version.version() + " (#" + this.version.buildNumber() + " git-" + this.version.shortCommitHash() + ")");
         sender.sendMessage(content);
     }
 

@@ -1,5 +1,5 @@
 {
   "version": "${version}",
-  "buildNumber": "${build_number}",
+  "buildNumber": ${build_number},
   "commitHash": "${commit_hash}"
 }

@@ -41,7 +41,7 @@ tasks {
     processResources {
         expand(mapOf(
             "version" to version,
-            "build_number" to if (hasProperty("BUILD_NUMBER")) System.getenv("BUILD_NUMBER") else "unknown",
+            "build_number" to if (hasProperty("BUILD_NUMBER")) System.getenv("BUILD_NUMBER") else "0",
             "commit_hash" to if (hasProperty("BUILD_VCS_NUMBER")) System.getenv("BUILD_VCS_NUMBER") else "unknown"
         ))
     }
