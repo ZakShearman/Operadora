@@ -34,23 +34,19 @@ public class UpdateChecker {
     }
 
     private CompletableFuture<OperadoraVersion> retrieveVersion() {
-        System.out.println("A");
         return this.httpClient.sendAsync(HttpRequest.newBuilder(VERSION_URI).GET().build(), OperadoraBodyHandler.ofJson())
             .thenApply(response -> {
-                System.out.println("B");
                 JsonObject content = response.body().getAsJsonObject();
-                System.out.println("C " + content);
                 return new OperadoraVersion(content.get("commitHash").getAsString(), content.get("version").getAsString(), Integer.parseInt(content.get("buildNumber").getAsString()));
             });
     }
 
     private void checkForStartupUpdates() {
-        System.out.println("1");
         this.retrieveVersion()
             .thenAccept(version -> {
                 int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
-                LOGGER.warn("Remote build {} and local build {}", version.buildNumber(), this.runtimeVersion.buildNumber());
-                LOGGER.warn("You are running an outdated version of Operadora. You are {} versions behind.", versionsBehind);
+                if (versionsBehind > 0)
+                    LOGGER.warn("You are running an outdated version of Operadora. You are {} versions behind.", versionsBehind);
             });
     }
 
