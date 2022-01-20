@@ -1,5 +1,3 @@
-import java.lang.System
-
 plugins {
     `java-library`
     `maven-publish`
@@ -39,11 +37,13 @@ tasks {
         }
     }
     processResources {
-        expand(mapOf(
-            "version" to version,
-            "build_number" to if (hasProperty("BUILD_NUMBER")) System.getenv("BUILD_NUMBER") else "0",
-            "commit_hash" to if (hasProperty("BUILD_VCS_NUMBER")) System.getenv("BUILD_VCS_NUMBER") else "unknown"
-        ))
+        expand(
+            mapOf(
+                "version" to version,
+                "build_number" to (System.getenv("BUILD_NUMBER") ?: "0"),
+                "commit_hash" to (System.getenv("BUILD_VCS_NUMBER") ?: "unknown")
+            )
+        )
     }
     named<Test>("test") {
         useJUnitPlatform()
