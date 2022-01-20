@@ -46,7 +46,7 @@ public class UpdateChecker {
             .thenAccept(version -> {
                 int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
                 if (versionsBehind > 0)
-                    LOGGER.warn("You are running an outdated version of Operadora. You are {} versions behind.", versionsBehind);
+                    LOGGER.warn("There is a new Operadora version available ({} - #{}). You are running {} - #{}", version.version(), version.buildNumber(), this.runtimeVersion.version(), this.runtimeVersion.buildNumber());
             });
     }
 
@@ -57,7 +57,8 @@ public class UpdateChecker {
                 if (versionsBehind > 0) {
                     Audience audience = Audiences.all(tAudience -> tAudience instanceof ConsoleSender || tAudience instanceof Player player && (player.hasPermission("operadora.updates") || player.getPermissionLevel() >= 4));
                     audience.sendMessage(
-                        Component.text("There is a new Operadora version available (#" + version.buildNumber() + "). You are " + versionsBehind + " versions behind")
+                        Component.text("There is a new Operadora version available (" + version.version() + " - #" + version.buildNumber() + ")." +
+                            " You are running " + this.runtimeVersion.version() + " #" + this.runtimeVersion.buildNumber())
                     );
                 }
             });
