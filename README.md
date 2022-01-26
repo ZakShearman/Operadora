@@ -13,7 +13,7 @@ Operadora is a a Minestom server implementation with basic features, some utilit
 
 ## Installation
 
-  - Download the latest release (stable) or [build from the CI](https://ci.zak.pink/buildConfiguration/Operadora_Build) (development)
+  - Download the latest release (stable) or [build from the CI](https://ci.zak.pink/buildConfiguration/Operadora_Build?guest=1) (development)
   - Run the jar using `java -jar fileName.jar`
 
 ## Features
@@ -25,7 +25,7 @@ Operadora is a a Minestom server implementation with basic features, some utilit
 
 ## Importing from Maven
 
-If you are using a pre-release build, make sure you use the build number from [TeamCity](https://ci.zak.pink/buildConfiguration/Operadora_Build)
+If you are using a pre-release build, make sure you use the build number from [TeamCity](https://ci.zak.pink/buildConfiguration/Operadora_Build?guest=1)
 
 ```gradle
 repositories {
