@@ -10,15 +10,15 @@ version = "1.0.0"
 repositories {
     mavenCentral()
     maven("https://jitpack.io")
-    maven("https://oss.sonatype.org/content/repositories/snapshots/") // todo minimessage? plz fix
 }
 
 dependencies {
     // modified minestom
-    api("com.github.ZakShearman:Minestom:2034ee1f2")
+    api("com.github.ZakShearman:Minestom:9c98fe0f23")
     api("com.influxdb:influxdb-client-java:4.0.0")
-    api("net.kyori:adventure-text-minimessage:4.2.0-SNAPSHOT")
-    implementation("com.typesafe:config:1.4.1")
+    implementation("net.kyori:adventure-text-minimessage:4.10.0")
+    implementation("com.typesafe:config:1.4.2")
+    implementation("com.google.guava:guava:31.0.1-jre")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")

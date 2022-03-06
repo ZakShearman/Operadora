@@ -4,6 +4,8 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pink.zak.minestom.operadora.config.OperadoraConfig;
 import pink.zak.minestom.operadora.config.OperadoraMeta;
 import pink.zak.minestom.operadora.manager.CommandLoader;
@@ -16,6 +18,7 @@ import pink.zak.minestom.operadora.update.UpdateChecker;
 import java.nio.file.Path;
 
 public class Operadora {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Operadora.class);
     private static final Path BASE_PATH = Path.of("");
     private static final EventNode<Event> EVENT_NODE = EventNode.all("operadora");
     private static final OperadoraConfig OPERADORA_CONFIG = OperadoraConfig.load();
@@ -35,6 +38,7 @@ public class Operadora {
 
         MinecraftServer.getGlobalEventHandler().addChild(EVENT_NODE);
 
+        LOGGER.info("Starting Operadora Minestom server at {}:{}", OPERADORA_CONFIG.ip(), OPERADORA_CONFIG.port());
         server.start(OPERADORA_CONFIG.ip(), OPERADORA_CONFIG.port());
 
         operatorRepository = new OperatorRepository();
