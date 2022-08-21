@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import pink.zak.minestom.operadora.Operadora;
 import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
 import pink.zak.minestom.operadora.module.influx.InfluxMetricsModule;
+import pink.zak.minestom.operadora.module.spawn.SpawnModule;
 import pink.zak.minestom.operadora.utils.data.FileUtils;
 
 import java.nio.file.Path;
@@ -48,11 +49,14 @@ public class ModuleManager {
                 LOGGER.warn("Unknown value specified in modules.conf ({})", moduleId);
             }
         }
+
+        LOGGER.info("Finished loading {} modules: {}", this.registeredModules.size(), this.registeredModules.keySet().stream().collect(Collectors.joining(", ")));
     }
 
     private void createModules() {
         this.registeredModules.put("host-support", new HostSupportModule());
         this.registeredModules.put("influx-metrics", new InfluxMetricsModule());
+        this.registeredModules.put("spawn", new SpawnModule());
     }
 
     public Map<String, Module> getRegisteredModules() {
