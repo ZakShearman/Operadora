@@ -1,21 +1,24 @@
 package pink.zak.minestom.operadora.module;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
-import com.typesafe.config.ConfigObject;
-import com.typesafe.config.ConfigValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pink.zak.minestom.operadora.Operadora;
-import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
-import pink.zak.minestom.operadora.module.influx.InfluxMetricsModule;
-import pink.zak.minestom.operadora.utils.data.FileUtils;
-
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+import com.typesafe.config.ConfigObject;
+import com.typesafe.config.ConfigValue;
+
+import pink.zak.minestom.operadora.Operadora;
+import pink.zak.minestom.operadora.module.hostsupport.HostSupportModule;
+import pink.zak.minestom.operadora.module.influx.InfluxMetricsModule;
+import pink.zak.minestom.operadora.module.spawn.SpawnModule;
+import pink.zak.minestom.operadora.utils.data.FileUtils;
 
 public class ModuleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ModuleManager.class);
@@ -53,6 +56,7 @@ public class ModuleManager {
     private void createModules() {
         this.registeredModules.put("host-support", new HostSupportModule());
         this.registeredModules.put("influx-metrics", new InfluxMetricsModule());
+        this.registeredModules.put("spawn", new SpawnModule());
     }
 
     public Map<String, Module> getRegisteredModules() {
