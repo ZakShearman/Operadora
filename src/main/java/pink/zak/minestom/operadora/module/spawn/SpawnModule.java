@@ -53,7 +53,11 @@ public class SpawnModule extends Module {
 
     private UUID parseInstanceUuid(String input) {
         if (input == null || input.isEmpty()) return null;
-        if (!UUID_PATTERN.matcher(input).matches()) LOGGER.warn("An spawning instance UUID was provided but is invalid ({})", input);
+        if (!UUID_PATTERN.matcher(input).matches()) {
+            LOGGER.warn("An spawning instance UUID was provided but is invalid ({})", input);
+            return null;
+        }
+
         return UUID.fromString(input);
     }
 
