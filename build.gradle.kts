@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "pink.zak.minestom.operadora"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
     mavenCentral()
@@ -16,12 +16,12 @@ dependencies {
     // modified minestom
     api("com.github.Minestom:Minestom:f5f323fef9")
     api("com.influxdb:influxdb-client-java:4.0.0")
-    implementation("net.kyori:adventure-text-minimessage:4.10.0")
+    implementation("net.kyori:adventure-text-minimessage:4.11.0")
     implementation("com.typesafe:config:1.4.2")
-    implementation("com.google.guava:guava:31.0.1-jre")
+    implementation("com.google.guava:guava:31.1-jre")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 
 
