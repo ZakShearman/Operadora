@@ -66,11 +66,11 @@ public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStri
     public @NotNull Iterable<T> findAll() {
         try {
             return Files.list(this.basePath)
-                .map(Path::toFile)
-                .filter(file -> file.getName().endsWith(".json"))
-                .map(this::parseFile)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toUnmodifiableSet());
+                    .map(Path::toFile)
+                    .filter(file -> file.getName().endsWith(".json"))
+                    .map(this::parseFile)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toUnmodifiableSet());
         } catch (IOException e) {
             e.printStackTrace();
             return (Iterable<T>) Collections.emptyIterator();
@@ -86,9 +86,9 @@ public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStri
     public long count() {
         try {
             return Files.list(this.basePath)
-                .map(Path::toFile)
-                .filter(file -> file.getName().endsWith(".json"))
-                .count();
+                    .map(Path::toFile)
+                    .filter(file -> file.getName().endsWith(".json"))
+                    .count();
         } catch (IOException e) {
             e.printStackTrace();
             return -1;
@@ -124,9 +124,9 @@ public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStri
     public void deleteAll() {
         try {
             Files.list(this.basePath)
-                .map(Path::toFile)
-                .filter(file -> file.getName().endsWith(".json"))
-                .forEach(File::delete);
+                    .map(Path::toFile)
+                    .filter(file -> file.getName().endsWith(".json"))
+                    .forEach(File::delete);
         } catch (IOException e) {
             e.printStackTrace();
         }

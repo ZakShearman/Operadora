@@ -9,6 +9,6 @@ public class PointHelper {
 
     public static Point now(String measurement, WritePrecision writePrecision) {
         return Point.measurement(measurement)
-            .time(Instant.now(), writePrecision);
+                .time(Instant.now(), writePrecision);
     }
 }

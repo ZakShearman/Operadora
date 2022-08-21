@@ -15,9 +15,9 @@ public abstract class TimedInfluxMetric extends InfluxMetric {
     protected TimedInfluxMetric(@NotNull InfluxMetricsModule module, @NotNull Duration fetchDelay) {
         super(module);
         this.task = MinecraftServer.getSchedulerManager()
-            .buildTask(() -> super.module.writePoints(this.createPoints()))
-            .repeat(fetchDelay)
-            .schedule();
+                .buildTask(() -> super.module.writePoints(this.createPoints()))
+                .repeat(fetchDelay)
+                .schedule();
     }
 
     protected abstract @NotNull List<Point> createPoints();

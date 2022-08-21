@@ -18,6 +18,8 @@ import pink.zak.minestom.operadora.update.OperadoraVersion;
 import java.util.Arrays;
 
 public class VersionCommand extends Command {
+    private static final JoinConfiguration COMMA_JOIN_CONFIG = JoinConfiguration.commas(true);
+
     private final OperadoraVersion version = Operadora.getMeta().version();
     private final ExtensionManager extensionManager = MinecraftServer.getExtensionManager();
 
@@ -25,9 +27,9 @@ public class VersionCommand extends Command {
         super("version", "ver", "v");
 
         ArgumentWord extensionArgument = ArgumentType.Word("extension").from(
-            this.extensionManager.getExtensions().stream()
-                .map(extension -> extension.getOrigin().getName())
-                .toArray(String[]::new)
+                this.extensionManager.getExtensions().stream()
+                        .map(extension -> extension.getOrigin().getName())
+                        .toArray(String[]::new)
         );
 
         this.setDefaultExecutor(this::versionCommand);
@@ -44,16 +46,12 @@ public class VersionCommand extends Command {
         Extension extension = this.extensionManager.getExtension(extensionName);
         DiscoveredExtension origin = extension.getOrigin();
 
-        JoinConfiguration joinConfiguration = JoinConfiguration.builder()
-            .separator(Component.text(", ", NamedTextColor.GREEN))
-            .build();
-
         Component content = Component.text(extensionName + " v" + origin.getVersion() + " ", NamedTextColor.GREEN);
 
         if (origin.getAuthors().length > 0)
             content = content
-                .append(Component.text("\nAuthors: ", NamedTextColor.WHITE))
-                .append(Component.join(joinConfiguration, Arrays.stream(origin.getAuthors()).map(Component::text).toArray(Component[]::new)));
+                    .append(Component.text("\nAuthors: ", NamedTextColor.WHITE))
+                    .append(Component.join(COMMA_JOIN_CONFIG, Arrays.stream(origin.getAuthors()).map(Component::text).toList()));
 
         sender.sendMessage(content);
     }

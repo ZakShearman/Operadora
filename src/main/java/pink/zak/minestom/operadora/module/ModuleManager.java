@@ -65,10 +65,10 @@ public class ModuleManager {
 
     public Collection<Module> getEnabledModules() {
         return this.registeredModules
-            .values()
-            .stream()
-            .filter(Module::isEnabled)
-            .collect(Collectors.toUnmodifiableSet());
+                .values()
+                .stream()
+                .filter(Module::isEnabled)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     public Module getModule(String id) {

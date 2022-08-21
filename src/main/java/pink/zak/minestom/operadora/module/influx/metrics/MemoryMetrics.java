@@ -31,13 +31,13 @@ public class MemoryMetrics extends TimedInfluxMetric {
         MemoryUsage heapUsage = MEMORY_BEAN.getHeapMemoryUsage();
         MemoryUsage nonHeapUsage = MEMORY_BEAN.getNonHeapMemoryUsage();
         return List.of(
-            PointHelper.now(MEMORY_ALLOCATED_MEASUREMENT, WritePrecision.S)
-                .addField("heap", heapUsage.getCommitted())
-                .addField("non-heap", nonHeapUsage.getCommitted()),
+                PointHelper.now(MEMORY_ALLOCATED_MEASUREMENT, WritePrecision.S)
+                        .addField("heap", heapUsage.getCommitted())
+                        .addField("non-heap", nonHeapUsage.getCommitted()),
                 //.addField("swap", SYSTEM_BEAN.getTotalSwapSpaceSize()),
-            PointHelper.now(MEMORY_USED_MEASUREMENT, WritePrecision.S)
-                .addField("heap", heapUsage.getUsed())
-                .addField("non-heap", nonHeapUsage.getUsed())
+                PointHelper.now(MEMORY_USED_MEASUREMENT, WritePrecision.S)
+                        .addField("heap", heapUsage.getUsed())
+                        .addField("non-heap", nonHeapUsage.getUsed())
                 //.addField("swap", SYSTEM_BEAN.getTotalSwapSpaceSize() - SYSTEM_BEAN.getFreeSwapSpaceSize())
         );
     }

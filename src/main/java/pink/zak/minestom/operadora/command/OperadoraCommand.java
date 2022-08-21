@@ -34,8 +34,8 @@ public class OperadoraCommand extends Command {
         Map<String, Module> moduleMap = this.moduleManager.getRegisteredModules();
         Collection<Module> enabledModules = this.moduleManager.getEnabledModules();
         Collection<Module> disabledModules = moduleMap.values().stream()
-            .filter(module -> !module.isEnabled())
-            .collect(Collectors.toUnmodifiableSet());
+                .filter(module -> !module.isEnabled())
+                .collect(Collectors.toUnmodifiableSet());
 
         if (sender instanceof Player) {
             sender.sendMessage(Component.text("-- There are " + enabledModules.size() + "/" + moduleMap.size() + " modules enabled --", NamedTextColor.GREEN));
@@ -49,8 +49,8 @@ public class OperadoraCommand extends Command {
 
             if (enabledModules.size() > 0) {
                 String enabledModulesList = enabledModules.stream()
-                    .map(Module::getId)
-                    .collect(Collectors.joining(", "));
+                        .map(Module::getId)
+                        .collect(Collectors.joining(", "));
                 sender.sendMessage("Enabled modules: " + enabledModulesList);
             }
         }

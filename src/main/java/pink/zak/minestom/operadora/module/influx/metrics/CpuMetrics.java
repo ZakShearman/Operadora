@@ -25,8 +25,8 @@ public class CpuMetrics extends TimedInfluxMetric {
     @Override
     protected @NotNull List<Point> createPoints() {
         return List.of(
-            PointHelper.now(MEASUREMENT, WritePrecision.S)
-                .addField("value", SYSTEM_BEAN.getProcessCpuLoad())
+                PointHelper.now(MEASUREMENT, WritePrecision.S)
+                        .addField("value", SYSTEM_BEAN.getProcessCpuLoad())
         );
     }
 }

@@ -50,8 +50,7 @@ public class Operadora {
         new UpdateChecker();
 
         HostSupportModule hostSupportModule = (HostSupportModule) moduleManager.getModule("host-support");
-        if (hostSupportModule.isEnabled())
-            hostSupportModule.onStart(startupTime);
+        if (hostSupportModule.isEnabled()) hostSupportModule.onStart(startupTime);
 
         MinecraftServer.getSchedulerManager().buildShutdownTask(Operadora::onStop);
 
@@ -62,13 +61,11 @@ public class Operadora {
         operatorRepository.shutdown();
     }
 
-    public static @NotNull
-    Path getBasePath() {
+    public static @NotNull Path getBasePath() {
         return BASE_PATH;
     }
 
-    public static @NotNull
-    EventNode<Event> getEventNode() {
+    public static @NotNull EventNode<Event> getEventNode() {
         return EVENT_NODE;
     }
 

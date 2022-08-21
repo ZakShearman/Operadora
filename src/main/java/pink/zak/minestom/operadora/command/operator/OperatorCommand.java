@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+// note this is planned for removal once LuckPerms officially supports Minestom
 public class OperatorCommand extends Command {
     OperatorRepository operatorRepository = Operadora.getOperatorRepository();
 
@@ -29,7 +30,8 @@ public class OperatorCommand extends Command {
 
         CommandCondition commandCondition = this.operatorRepository.getCommandCondition("operadora.command.op");
         this.addConditionalSyntax(commandCondition, this::opPlayerCommand, playerArgument);
-        this.addConditionalSyntax(commandCondition, (sender, context) -> {}, listArgument);
+        this.addConditionalSyntax(commandCondition, (sender, context) -> {
+        }, listArgument);
     }
 
     private void opPlayerCommand(CommandSender sender, CommandContext context) {

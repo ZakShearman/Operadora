@@ -28,13 +28,13 @@ public class CommandLoader {
 
     static {
         AVAILABLE_COMMANDS = Map.ofEntries( // config is here for future features
-            Map.entry("gamemode", config -> new GamemodeCommand()),
-            Map.entry("operator", config -> new OperatorCommand()),
-            Map.entry("remove-operator", config -> new RemoveOperatorCommand()),
-            Map.entry("extensions", config -> new ExtensionsCommand()),
-            Map.entry("operadora", config -> new OperadoraCommand()),
-            Map.entry("stop", config -> new StopCommand()),
-            Map.entry("version", config -> new VersionCommand())
+                Map.entry("gamemode", config -> new GamemodeCommand()),
+                Map.entry("operator", config -> new OperatorCommand()),
+                Map.entry("remove-operator", config -> new RemoveOperatorCommand()),
+                Map.entry("extensions", config -> new ExtensionsCommand()),
+                Map.entry("operadora", config -> new OperadoraCommand()),
+                Map.entry("stop", config -> new StopCommand()),
+                Map.entry("version", config -> new VersionCommand())
         );
     }
 

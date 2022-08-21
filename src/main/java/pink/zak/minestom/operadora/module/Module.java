@@ -16,13 +16,13 @@ public abstract class Module {
         return this.id;
     }
 
+    public boolean isEnabled() {
+        return this.enabled;
+    }
+
     @ApiStatus.Internal
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public boolean isEnabled() {
-        return this.enabled;
     }
 
     public abstract void load(Config config);

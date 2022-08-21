@@ -22,8 +22,8 @@ public class PlayerCountMetric extends TimedInfluxMetric {
     @Override
     protected @NotNull List<Point> createPoints() {
         return List.of(
-            PointHelper.now(MEASUREMENT, WritePrecision.S)
-            .addField("value", MinecraftServer.getConnectionManager().getOnlinePlayers().size())
+                PointHelper.now(MEASUREMENT, WritePrecision.S)
+                        .addField("value", MinecraftServer.getConnectionManager().getOnlinePlayers().size())
         );
     }
 }

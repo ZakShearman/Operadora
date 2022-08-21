@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ExtensionsCommand extends Command {
+    private static final JoinConfiguration COMMA_JOIN_CONFIG = JoinConfiguration.commas(true);
+
     private final ExtensionManager extensionManager = MinecraftServer.getExtensionManager();
 
     public ExtensionsCommand() {
@@ -28,9 +30,7 @@ public class ExtensionsCommand extends Command {
     private void listExtensionsCommand(CommandSender sender, CommandContext context) {
         Collection<Extension> extensions = this.extensionManager.getExtensions();
 
-        JoinConfiguration joinConfiguration = JoinConfiguration.builder()
-            .separator(Component.text(", "))
-            .build();
+
         Set<Component> extensionNames = new HashSet<>();
 
         for (Extension extension : extensions) {
@@ -38,19 +38,15 @@ public class ExtensionsCommand extends Command {
             String authorsText = extensionMeta.getAuthors().length < 1 ? "N/A" : String.join(", ", extensionMeta.getAuthors());
             String dependenciesText = extensionMeta.getAuthors().length < 1 ? "N/A" : String.join(", ", extensionMeta.getDependencies());
             Component hoverComponent = Component.text(
-                "Authors: " + authorsText
-                    + "\nVersion: " + extensionMeta.getVersion()
-                    + "\nDependencies: " + dependenciesText
+                    "Authors: " + authorsText
+                            + "\nVersion: " + extensionMeta.getVersion()
+                            + "\nDependencies: " + dependenciesText
             );
 
-            Component component = Component.text()
-                .content(extensionMeta.getName())
-                .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT, hoverComponent))
-                .build();
-
+            Component component = Component.text().content(extensionMeta.getName()).hoverEvent(HoverEvent.showText(hoverComponent)).build();
             extensionNames.add(component);
         }
 
-        sender.sendMessage(Component.text("Extensions (" + extensions.size() + "): ").append(Component.join(joinConfiguration, extensionNames)));
+        sender.sendMessage(Component.text("Extensions (" + extensions.size() + "): ").append(Component.join(COMMA_JOIN_CONFIG, extensionNames)));
     }
 }

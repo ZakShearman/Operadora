@@ -8,8 +8,8 @@ import java.net.http.HttpResponse;
 
 public class OperadoraBodyHandler {
     private static final HttpResponse.BodyHandler<JsonElement> JSON_BODY_HANDLER = responseInfo -> HttpResponse.BodySubscribers.mapping(
-        HttpResponse.BodySubscribers.ofInputStream(),
-        inputStream -> JsonParser.parseReader(new InputStreamReader(inputStream))
+            HttpResponse.BodySubscribers.ofInputStream(),
+            inputStream -> JsonParser.parseReader(new InputStreamReader(inputStream))
     );
 
     public static HttpResponse.BodyHandler<JsonElement> ofJson() {

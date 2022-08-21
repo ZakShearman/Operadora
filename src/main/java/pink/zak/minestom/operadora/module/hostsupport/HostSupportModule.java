@@ -21,14 +21,14 @@ public class HostSupportModule extends Module {
     public void load(Config config) {
         boolean showIp = config.getBoolean("show-ip");
         Operadora.getEventNode()
-            .addListener(PlayerSpawnEvent.class, event -> { // don't use login or the disconnect won't be fired if they didn't log in successfully
-                Player player = event.getPlayer();
-                String ip = showIp ? player.getPlayerConnection().getServerAddress() : "hidden";
-                Audiences.console().sendMessage(Component.text(player.getUsername() + " [/" + ip + "] logged in logged in with entity id " + player.getEntityId()));
-            })
-            .addListener(PlayerDisconnectEvent.class, event -> {
-                Audiences.console().sendMessage(Component.text(event.getPlayer().getUsername() + " lost connection: N/A"));
-            });
+                .addListener(PlayerSpawnEvent.class, event -> { // don't use login or the disconnect won't be fired if they didn't log in successfully
+                    Player player = event.getPlayer();
+                    String ip = showIp ? player.getPlayerConnection().getServerAddress() : "hidden";
+                    Audiences.console().sendMessage(Component.text(player.getUsername() + " [/" + ip + "] logged in logged in with entity id " + player.getEntityId()));
+                })
+                .addListener(PlayerDisconnectEvent.class, event -> {
+                    Audiences.console().sendMessage(Component.text(event.getPlayer().getUsername() + " lost connection: N/A"));
+                });
     }
 
     public void onStart(long startupMillis) {

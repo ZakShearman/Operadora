@@ -25,8 +25,8 @@ public class ThreadMetrics extends TimedInfluxMetric {
     @Override
     protected @NotNull List<Point> createPoints() {
         return List.of(
-            PointHelper.now(MEASUREMENT, WritePrecision.S)
-                .addField("value", BEAN.getThreadCount())
+                PointHelper.now(MEASUREMENT, WritePrecision.S)
+                        .addField("value", BEAN.getThreadCount())
         );
     }
 }

@@ -15,11 +15,11 @@ public record OperadoraMeta(OperadoraVersion version) {
             String jsonString = new String(FileUtils.class.getClassLoader().getResourceAsStream("operadora.json").readAllBytes());
             JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
             return new OperadoraMeta(
-                new OperadoraVersion(
-                    jsonObject.get("version").getAsString(),
-                    jsonObject.get("commitHash").getAsString(),
-                    jsonObject.get("buildNumber").getAsInt()
-                )
+                    new OperadoraVersion(
+                            jsonObject.get("version").getAsString(),
+                            jsonObject.get("commitHash").getAsString(),
+                            jsonObject.get("buildNumber").getAsInt()
+                    )
             );
         } catch (Exception ex) {
             LOGGER.error("Error loading OperadoraMeta", ex);

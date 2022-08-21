@@ -25,12 +25,12 @@ public class WhitelistRepository extends BasicJsonRepository {
 
         // we should save every so often if a change is made
         this.task = MinecraftServer.getSchedulerManager().buildTask(() -> {
-                if (this.changeMade)
-                    this.save();
-            })
-            .delay(5, TimeUnit.MINUTE)
-            .repeat(5, TimeUnit.MINUTE)
-            .schedule();
+                    if (this.changeMade)
+                        this.save();
+                })
+                .delay(5, TimeUnit.MINUTE)
+                .repeat(5, TimeUnit.MINUTE)
+                .schedule();
     }
 
     private void load() {

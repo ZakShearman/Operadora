@@ -28,39 +28,39 @@ public class UpdateChecker {
     public UpdateChecker() {
         this.checkForStartupUpdates();
         MinecraftServer.getSchedulerManager().buildTask(this::checkForUpdates)
-            .delay(Duration.ofMinutes(30))
-            .repeat(Duration.ofMinutes(30))
-            .schedule();
+                .delay(Duration.ofMinutes(30))
+                .repeat(Duration.ofMinutes(30))
+                .schedule();
     }
 
     private CompletableFuture<OperadoraVersion> retrieveVersion() {
         return this.httpClient.sendAsync(HttpRequest.newBuilder(VERSION_URI).GET().build(), OperadoraBodyHandler.ofJson())
-            .thenApply(response -> {
-                JsonObject content = response.body().getAsJsonObject();
-                return new OperadoraVersion(content.get("commitHash").getAsString(), content.get("version").getAsString(), Integer.parseInt(content.get("buildNumber").getAsString()));
-            });
+                .thenApply(response -> {
+                    JsonObject content = response.body().getAsJsonObject();
+                    return new OperadoraVersion(content.get("commitHash").getAsString(), content.get("version").getAsString(), Integer.parseInt(content.get("buildNumber").getAsString()));
+                });
     }
 
     private void checkForStartupUpdates() {
         this.retrieveVersion()
-            .thenAccept(version -> {
-                int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
-                if (versionsBehind > 0)
-                    LOGGER.warn("There is a new Operadora version available ({} - #{}). You are running {} - #{}", version.version(), version.buildNumber(), this.runtimeVersion.version(), this.runtimeVersion.buildNumber());
-            });
+                .thenAccept(version -> {
+                    int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
+                    if (versionsBehind > 0)
+                        LOGGER.warn("There is a new Operadora version available ({} - #{}). You are running {} - #{}", version.version(), version.buildNumber(), this.runtimeVersion.version(), this.runtimeVersion.buildNumber());
+                });
     }
 
     private void checkForUpdates() {
         this.retrieveVersion()
-            .thenAccept(version -> {
-                int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
-                if (versionsBehind > 0) {
-                    Audience audience = Audiences.all(tAudience -> tAudience instanceof ConsoleSender || tAudience instanceof Player player && (player.hasPermission("operadora.updates") || player.getPermissionLevel() >= 4));
-                    audience.sendMessage(
-                        Component.text("There is a new Operadora version available (" + version.version() + " - #" + version.buildNumber() + ")." +
-                            " You are running " + this.runtimeVersion.version() + " #" + this.runtimeVersion.buildNumber())
-                    );
-                }
-            });
+                .thenAccept(version -> {
+                    int versionsBehind = version.buildNumber() - this.runtimeVersion.buildNumber();
+                    if (versionsBehind > 0) {
+                        Audience audience = Audiences.all(tAudience -> tAudience instanceof ConsoleSender || tAudience instanceof Player player && (player.hasPermission("operadora.updates") || player.getPermissionLevel() >= 4));
+                        audience.sendMessage(
+                                Component.text("There is a new Operadora version available (" + version.version() + " - #" + version.buildNumber() + ")." +
+                                        " You are running " + this.runtimeVersion.version() + " #" + this.runtimeVersion.buildNumber())
+                        );
+                    }
+                });
     }
 }

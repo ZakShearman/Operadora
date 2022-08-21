@@ -28,22 +28,22 @@ public class InstanceMetrics extends TimedInfluxMetric {
     @Override
     protected @NotNull List<Point> createPoints() {
         int chunksLoaded = INSTANCE_MANAGER.getInstances()
-            .stream()
-            .map(Instance::getChunks)
-            .map(Collection::size)
-            .mapToInt(Integer::intValue).sum();
+                .stream()
+                .map(Instance::getChunks)
+                .map(Collection::size)
+                .mapToInt(Integer::intValue).sum();
 
         int entitiesLoaded = INSTANCE_MANAGER.getInstances()
-            .stream()
-            .map(Instance::getEntities)
-            .map(Collection::size)
-            .mapToInt(Integer::intValue).sum();
+                .stream()
+                .map(Instance::getEntities)
+                .map(Collection::size)
+                .mapToInt(Integer::intValue).sum();
 
         return List.of(
-            PointHelper.now(CHUNKS_LOADED_MEASUREMENT, WritePrecision.S)
-                .addField("value", chunksLoaded),
-            PointHelper.now(ENTITIES_LOADED_MEASUREMENT, WritePrecision.S)
-                .addField("value", entitiesLoaded)
+                PointHelper.now(CHUNKS_LOADED_MEASUREMENT, WritePrecision.S)
+                        .addField("value", chunksLoaded),
+                PointHelper.now(ENTITIES_LOADED_MEASUREMENT, WritePrecision.S)
+                        .addField("value", entitiesLoaded)
         );
     }
 }

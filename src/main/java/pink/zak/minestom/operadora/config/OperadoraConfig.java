@@ -61,12 +61,6 @@ public record OperadoraConfig(String ip, int port, boolean onlineMode,
         MinecraftServer.setDifficulty(this.difficulty);
     }
 
-    private enum ProxyType {
-        NONE,
-        BUNGEE_CORD,
-        VELOCITY
-    }
-
     private void setupProxy() {
         switch (this.proxyType) {
             case VELOCITY -> {
@@ -85,5 +79,11 @@ public record OperadoraConfig(String ip, int port, boolean onlineMode,
             case NONE -> {
             }
         }
+    }
+
+    private enum ProxyType {
+        NONE,
+        BUNGEE_CORD,
+        VELOCITY
     }
 }

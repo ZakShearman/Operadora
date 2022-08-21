@@ -22,12 +22,12 @@ public class TickMonitorMetrics extends InfluxMetric {
             TickMonitor tickMonitor = event.getTickMonitor();
 
             module.writePoints(
-                List.of(
-                    PointHelper.now(TICK_TIME_MEASUREMENT, WritePrecision.MS)
-                        .addField("value", tickMonitor.getTickTime()),
-                    PointHelper.now(ACQUISITION_TIME_MEASUREMENT, WritePrecision.MS)
-                        .addField("value", tickMonitor.getAcquisitionTime())
-                )
+                    List.of(
+                            PointHelper.now(TICK_TIME_MEASUREMENT, WritePrecision.MS)
+                                    .addField("value", tickMonitor.getTickTime()),
+                            PointHelper.now(ACQUISITION_TIME_MEASUREMENT, WritePrecision.MS)
+                                    .addField("value", tickMonitor.getAcquisitionTime())
+                    )
             );
         });
     }
