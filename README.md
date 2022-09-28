@@ -34,7 +34,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly("pink.zak.minestom.operadora:operadora:1.1.0") // release builds
+  compileOnly("pink.zak.minestom.operadora:operadora:1.2.0") // release builds
   compileOnly("pink.zak.minestom.operadora:operadora:26") // pre-release builds (see TeamCity CI)
 }
 ```
