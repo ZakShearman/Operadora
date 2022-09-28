@@ -62,7 +62,8 @@ public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStri
         return Optional.ofNullable(this.parseFile(file));
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public @NotNull Iterable<T> findAll() {
         try {
             return Files.list(this.basePath)

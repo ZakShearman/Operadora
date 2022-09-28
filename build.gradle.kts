@@ -13,8 +13,7 @@ repositories {
 }
 
 dependencies {
-    // modified minestom
-    api("com.github.Minestom:Minestom:f5f323fef9")
+    api("com.github.Minestom:Minestom:18c4648")
     api("com.influxdb:influxdb-client-java:4.0.0")
     implementation("net.kyori:adventure-text-minimessage:4.11.0")
     implementation("com.typesafe:config:1.4.2")
