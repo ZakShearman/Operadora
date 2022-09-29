@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStringConverter<ID> {
     protected static final Gson GSON = new Gson();
@@ -62,10 +63,11 @@ public abstract class JsonRepository<ID, T> implements Repository<ID, T>, IdStri
         return Optional.ofNullable(this.parseFile(file));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public @NotNull Iterable<T> findAll() {
-        try {
-            return Files.list(this.basePath)
+        try (Stream<Path> pathStream = Files.list(this.basePath)) {
+            return pathStream
                     .map(Path::toFile)
                     .filter(file -> file.getName().endsWith(".json"))
                     .map(this::parseFile)
