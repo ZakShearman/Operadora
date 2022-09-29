@@ -45,7 +45,7 @@ public class SpawnModule extends Module {
                     instance = instanceManager.getInstances().iterator().next();
                 }
             }
-            
+
             event.setSpawningInstance(instance);
             event.getPlayer().setRespawnPoint(spawn);
         });
